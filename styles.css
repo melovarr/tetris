@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(90deg, rgb(0, 255, 200), rgb(110, 173, 110));
+  height: 100vh;
+}
+
+.tetris {
+  display: grid;
+
+  grid-template-columns: repeat(10, auto);
+  border: 1px solid rgb(0, 0, 0);
+  /* box-shadow: inset -2px -2px 3px rgb(201, 201, 201), inset 2px 2px 3px black; */
+}
+
+.tetris div {
+  border: 1px solid black;
+  height: min(4vh, 7vw);
+  width: min(4vh, 7vw);
+  background: gray;
+  box-shadow: inset 2px 2px 3px rgb(201, 201, 201), inset -2px -2px 3px black;
+}
