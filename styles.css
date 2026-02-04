@@ -24,3 +24,26 @@ body {
   background: gray;
   box-shadow: inset 2px 2px 3px rgb(201, 201, 201), inset -2px -2px 3px black;
 }
+
+.tetris .O {
+  background: rgb(255, 255, 0);
+}
+
+.tetris .I {
+  background: rgb(0, 255, 255);
+}
+.tetris .T {
+  background: rgb(128, 0, 128);
+}
+.tetris .S {
+  background: rgb(0, 255, 0);
+}
+.tetris .Z {
+  background: rgb(255, 0, 0);
+}
+.tetris .J {
+  background: rgb(0, 0, 255);
+}
+.tetris .L {
+  background: rgb(255, 165, 0);
+}
