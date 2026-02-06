@@ -88,52 +88,86 @@ document.addEventListener("keydown", handleKeyDown);
 
 function handleKeyDown(event) {
   if (event.key === "ArrowLeft") {
-    tetromino.column--;
-    if (isOutsideOfPlayfield(tetromino.row, tetromino.column)) {
-      tetromino.column++;
-    }
+    moveLeft();
     // drawMove();
     // console.log("Left");
   } else if (event.key === "ArrowRight") {
-    tetromino.column++;
-    if (isOutsideOfPlayfield(tetromino.row, tetromino.column)) {
-      tetromino.column--;
-    }
+    moveRight();
     // drawMove();
     // console.log("Right");
   } else if (event.key === "ArrowDown") {
-    tetromino.row++;
-    if (isOutsideOfPlayfield(tetromino.row, tetromino.column)) {
-      tetromino.row--;
-    }
+    moveDown();
     // drawMove();
     console.log("Down");
-  } else if (event.key === "ArrowUp") {
-    tetromino.row--;
-    if (isOutsideOfPlayfield(tetromino.row, tetromino.column)) {
-      tetromino.row++;
-    }
+    //   }
+    // else if (event.key === "ArrowUp") {
+    //     tetromino.row--;
+    //     if (isOutsideOfPlayfield(tetromino.row, tetromino.column)) {
+    //       tetromino.row++;
+    //     }
     // drawMove();
     console.log("Up");
   }
   drawMove();
 }
 
+function moveLeft() {
+  tetromino.column--;
+  if (!isValid()) {
+    tetromino.column++;
+  }
+}
+function moveRight() {
+  tetromino.column++;
+  if (!isValid()) {
+    tetromino.column--;
+  }
+}
+function moveDown() {
+  tetromino.row++;
+  if (!isValid()) {
+    tetromino.row--;
+    newFigure();
+  }
+}
+
 function drawMove() {
-  drawPlayfield();
   cells.forEach((el) => el.removeAttribute("class"));
+  drawPlayfield();
   drawTetromino();
 }
 
 // Collision functions
+
+function isValid() {
+  const matrixSize = tetromino.matrix.length;
+  for (let row = 0; row < matrixSize; row++) {
+    for (let column = 0; column < matrixSize; column++) {
+      if (isOutsideOfPlayfield(row, column)) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 function isOutsideOfPlayfield(row, column) {
   return (
-    column < 0 ||
-    column > PLAYFIELD_COLUMNS - tetromino.matrix.length ||
-    row < 0 ||
-    row > PLAYFIELD_ROWS - tetromino.matrix.length
+    tetromino.matrix[row][column] &&
+    (tetromino.row + row >= PLAYFIELD_ROWS ||
+      tetromino.column + column < 0 ||
+      tetromino.column + column >= PLAYFIELD_COLUMNS)
   );
 }
+
+// function isOutsideOfPlayfield(row, column) {
+//   return (
+//     column < 0 ||
+//     column > PLAYFIELD_COLUMNS - tetromino.matrix.length ||
+//     row < 0 ||
+//     row > PLAYFIELD_ROWS - tetromino.matrix.length
+//   );
+// }
 // Draw functions
 function drawPlayfield() {
   //   playfield[4][3] = "O";
@@ -163,8 +197,22 @@ function drawTetromino() {
   }
 }
 
+function newFigure() {
+  const tetrominoMatrixSize = tetromino.matrix.length;
+  for (let row = 0; row < tetrominoMatrixSize; row++) {
+    for (let column = 0; column < tetrominoMatrixSize; column++) {
+      if (tetromino.matrix[row][column]) {
+        playfield[tetromino.row + row][tetromino.column + column] =
+          tetromino.name;
+      }
+    }
+  }
+  generateTetromino();
+}
+
 generatePlayfield();
 let cells = document.querySelectorAll(".tetris div");
 generateTetromino();
 drawPlayfield();
 drawTetromino();
+drawMove();
