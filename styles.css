@@ -22,7 +22,9 @@ body {
   height: min(4vh, 7vw);
   width: min(4vh, 7vw);
   background: gray;
-  box-shadow: inset 2px 2px 3px rgb(201, 201, 201), inset -2px -2px 3px black;
+  box-shadow:
+    inset 2px 2px 3px rgb(201, 201, 201),
+    inset -2px -2px 3px black;
 }
 
 .tetris .O {
@@ -46,4 +48,14 @@ body {
 }
 .tetris .L {
   background: rgb(255, 165, 0);
+}
+.score {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  font-size: 48px;
+  font-weight: bold;
+  border: 3px solid black;
+  padding: 10px 20px;
+  border-radius: 20px;
 }
